@@ -5,7 +5,7 @@ module.exports = {
   ],
   axios:{},
   proxy: {
-    '/api': 'http://booost.jp.localhost'
+    '/api': 'http://localhost:8000'
   },
   srcDir: "./nuxtjs",
   /*

@@ -28,21 +28,35 @@ export default {
     AppLogo
   },
   methods: {
-    sigin_from(){
+    async sigin_from(){
       var param = new URLSearchParams();
+
       param.append("user_name",this.user_name);
-      param.append("user_pass",this.user_pass);
+      param.append("user_pass",this.user_pass)
+
+      const axiosPost = ({url,params}) => {
+        return (
+          axios.post(url,params)
+            .then(
+              response => {
+
+                console.log(response.data.token);
+                // if (response.data.token != "Nothing"){
+                //   router.push('main')
+                //   return true
+                // }else{
+                //   return false
+                // }
+              }
+            )
+        )
+      }
 
 
-      axios.post('/api/login',param).then(function(response){
-        if (response.data.token != "Nothing"){
-          //ログイン成功
-          alert("サインイン！");
-        }else{
-          //ログイン失敗
-          alert("アカウント情報がありません。")
-        }
-      })
+      //Promis
+      var router = this.$router
+      var get = axiosPost({url:'api/login',param})
+
     }
   }
 }

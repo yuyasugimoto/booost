@@ -11,20 +11,18 @@ class loginapi extends Controller
     public function index(Request $req){
 
         $cls = new ModelLogin();
-        $Serv = $cls->signin();
-        
+        $Serv = $cls->signin($req->input('user_name'));
 
-        if (array_key_exists($req->input('user_name'),$Serv)){
-            if ($Serv[$req->input('user_name')]['password'] == $req->input('user_pass')){
-                return ["token" => $Serv[$req->input('user_name')]['token']];
-            }else{
-                return ['token'=> "Nothing"];
-            }
+        if ($Serv == null){
+            return ['token'=> "Nothing top"];
+        }
+
+        if ($Serv[$req->input('user_name')]['password'] == $req->input('user_pass')){
+            return ["token" => $Serv[$req->input('user_name')]['token']];
         }else{
-            return ['token'=> "Nothing"];
+            return ['token'=> "Nothing pass"];
         }
 
 
-        return ['token'=> "Nothing"];
     }
 }

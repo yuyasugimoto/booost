@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
+const _5b4699a1 = () => interopDefault(import('..\\nuxtjs\\pages\\main.vue' /* webpackChunkName: "pages_main" */))
 const _21fd12cc = () => interopDefault(import('..\\nuxtjs\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
 
 Vue.use(Router)
@@ -79,6 +80,10 @@ export function createRouter() {
     scrollBehavior,
 
     routes: [{
+      path: "/main",
+      component: _5b4699a1,
+      name: "main"
+    }, {
       path: "/",
       component: _21fd12cc,
       name: "index"
