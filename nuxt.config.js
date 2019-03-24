@@ -1,4 +1,7 @@
 module.exports = {
+  plugins: [
+    { src: '~/plugins/localStorage.js', ssr: false }
+  ],
   modules: [
     '@nuxtjs/proxy',
     '@nuxtjs/axios'

@@ -29,35 +29,62 @@ export default {
   },
   methods: {
     async sigin_from(){
-      var param = new URLSearchParams();
-
-      param.append("user_name",this.user_name);
-      param.append("user_pass",this.user_pass)
-
-      const axiosPost = ({url,params}) => {
-        return (
-          axios.post(url,params)
-            .then(
-              response => {
-
-                console.log(response.data.token);
-                // if (response.data.token != "Nothing"){
-                //   router.push('main')
-                //   return true
-                // }else{
-                //   return false
-                // }
-              }
-            )
-        )
+      var param = {
+        'user_name' : this.user_name,
+        'user_pass' : this.user_pass
       }
 
+      //storeのdoUpdateを呼び出し
+      this.$store.commit('setToken',param)
 
-      //Promis
-      var router = this.$router
-      var get = axiosPost({url:'api/login',param})
+      //storeからログイン成功したかの判定をもらう
+      var str_login = this.$store.getters['getToken']
+
+    console.log(str_login)
+
+      if (str_login == "Nothing"){
+        this.$router.push('/main')
+      }else{
+        this.error_msg = "認証できませんでした！"
+      }
 
     }
+
+
+    // async sigin_from(){
+    //   var param = new URLSearchParams();
+    //   const userid = this.user_name;
+    //   const userpass = this.user_pass;
+
+    //   param.append("user_name",userid)
+    //   param.append("user_pass",userpass)
+
+    //   const axiosPost = ({url,param,router,store}) => {
+    //     return (
+    //       axios.post(url,param)
+    //         .then(
+    //           response => {
+
+    //             console.log(response.data.token);
+    //             if (response.data.token != "Nothing"){
+    //               store.state.index.setToken
+    //               router.push('main')
+    //               return true
+    //             }else{
+    //               this.error_msg = "情報照会に誤りがあります！"
+    //               return false
+    //             }
+    //           }
+    //         )
+    //     )
+    //   }
+
+
+    //   //Promis
+    //   var router = this.$router
+    //   var get = axiosPost({url:'api/login',param,router})
+
+    //}
   }
 }
 

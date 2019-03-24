@@ -14,13 +14,16 @@ class loginapi extends Controller
         $Serv = $cls->signin($req->input('user_name'));
 
         if ($Serv == null){
-            return ['token'=> "Nothing top"];
+            return ['token'=> "Nothing"];
         }
 
         if ($Serv[$req->input('user_name')]['password'] == $req->input('user_pass')){
-            return ["token" => $Serv[$req->input('user_name')]['token']];
+            //$req->session()->put('token',$Serv[$req->input('user_name')]['token']);
+            $token = $Serv[$req->input('user_name')]['token'];
+            session(['hashedpotets'=>$token]);
+            return ["token" => $token];
         }else{
-            return ['token'=> "Nothing pass"];
+            return ['token'=> "Nothing"];
         }
 
 

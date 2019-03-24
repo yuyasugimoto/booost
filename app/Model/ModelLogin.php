@@ -10,11 +10,9 @@ class ModelLogin extends Model
      //
      public function signin($user_name){
 
-        $user_name = "sugimoto";
-
         $user_info = DB::table('v_users')->select('user_name','user_pass','token')->where('user_name','like',$user_name)->get();
 
-        if (count($user_info) < 0){
+        if (count($user_info) == 0){
             return $Serv = null;
         }
 
