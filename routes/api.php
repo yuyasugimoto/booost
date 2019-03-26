@@ -24,3 +24,5 @@ Route::post('/status',function(){
 Route::post('/login','loginapi@index');
 
 Route::post('/gettoken','token@index');
+
+Route::post('/gettask','getTask@index');

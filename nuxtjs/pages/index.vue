@@ -35,14 +35,12 @@ export default {
       }
 
       //storeのdoUpdateを呼び出し
-      this.$store.commit('setToken',param)
+      await this.$store.commit('setToken',param)
 
       //storeからログイン成功したかの判定をもらう
       var str_login = this.$store.getters['getToken']
 
-    console.log(str_login)
-
-      if (str_login == "Nothing"){
+      if (str_login != "Nothing"){
         this.$router.push('/main')
       }else{
         this.error_msg = "認証できませんでした！"

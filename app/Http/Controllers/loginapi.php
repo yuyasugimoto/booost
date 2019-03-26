@@ -20,8 +20,8 @@ class loginapi extends Controller
         if ($Serv[$req->input('user_name')]['password'] == $req->input('user_pass')){
             //$req->session()->put('token',$Serv[$req->input('user_name')]['token']);
             $token = $Serv[$req->input('user_name')]['token'];
-            session(['hashedpotets'=>$token]);
-            return ["token" => $token];
+            $id = $Serv[$req->input('user_name')]['id'];
+            return json_encode(["token" => $token,"id" => $id]);
         }else{
             return ['token'=> "Nothing"];
         }
