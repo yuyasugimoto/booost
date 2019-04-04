@@ -1,71 +1,29 @@
 <template>
-<div>
-    <header>
-        <div id="header">
-            <div class="fl" id="icon">
-                Vuuuuen
-            </div>
-            <div class="fl" id="plus">
-                <img id="button" src="img/plus.png" alt="プラスボタン">
-            </div>
-            <div class="fl" id="menu">
-                <ul>
-                    <li class="menu_button fl" v-for="menu in menu_link" :key="menu.id">
-                        {{ menu.menu }}
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </header>
-
-    <div id="main">
-        <div id="tree" class="fl">
-            <ul>
-                <li v-on:click="getTask" class="Task">ロード</li>
-                <li v-for="task_min in task_list" :key="task_min.id" class="Task" v-vind:id="task_min.id" v-on:click="getTask">{{ task_min.task_name }}</li>
-            </ul>
-        </div>
-        <div id="panel" class="fl">
-            
-        </div>
-    </div>
+<div id="main">
+    <header-view></header-view>
+    <goiken-view></goiken-view>
 </div>
 </template>
 
 <script>
 import axios from 'axios'
+import HeaderView from '~/components/common/header.vue'
+import GoikenView from '~/components/views/goiken.vue'
 
 export default {
+    components: {
+        HeaderView,
+        GoikenView
+    },
     data(){
         return {
-            menu_link: [
-                {id:1,menu:"受信箱"},
-                {id:2,menu:"送信箱"},
-                {id:3,menu:"差込箱"},
-            ],
-            task_list:[
-                
-            ]
+            search: "",
+            qiita:[]
         }
-        
-    },
-    asyncData: {
-        
     },
     methods: {
-        getTask(){
-            console.log(this.$refs.id);
-            
-        }
     },
     mounted() {
-        //タスクの取得
-        var param = new URLSearchParams();
-        param.append('user_id',localStorage.user_id);
-        axios.post('api/gettask',param).then(response => (
-            //console.log(response.data[0])
-            this.task_list.push(response.data[0])
-        ));
     }
 }
 </script>
@@ -75,95 +33,46 @@ export default {
 *{
     padding: 0;
     margin: 0;
-    overflow: hidden;
 }
-
-header #header{
+body{
     width: 100%;
-    padding: 12px 0px 8px 20px;
-    background-color: #1D364C;
 }
-#button{
-    cursor: pointer;
+#search{
+    width: 1200px;
+    margin: 10px auto;
+    padding: 10px 0px;
 }
-
-#header::after{
-    content: ".";
-    display: block;
-    visibility: hidden;
-    width: 0px;
-    height: 0px;
-    clear: both;
+#content{
+    width: 1200px;
+    margin: 10px auto;
 }
-
-#icon{
-    color: #fff;
+#textbox{
+    width: 800px;
+    height: 45px;
+    font-size: 20px;
     font-weight: bolder;
-    width: 130px;
-    height: 31px;
-    text-align: center;
-    line-height: 31px;
-
 }
-
-#menu{
-    margin-left: 10px;
-}
-
-#menu > ul > .menu_button{
-    list-style-type: none;
-    margin-left: 10px;
-    color: #ccc;
-    cursor: pointer;
-    line-height: 31px;
-    height: 33px;
-    width: 120px;
-    text-align: center;
-}
-
-#main {
-    width: 100%;
-    overflow: hidden;
-}
-
-#main::after{
-    content: ".";
-    display: block;
-    visibility: hidden;
-    width: 0px;
-    height: 0px;
-    clear: both;
-}
-
-#tree{
-    width: 25%;
-    padding: 10px;
-    height: calc(100vh - 54px);
-    border-right: 1px solid #1D364C;
-    background: #1D364C;
+#submit{
+    width: 100px;
+    height: 45px;
+    position: relative;
+    top: -3px;
+    background: #005F77;
     color: #fff;
+    border: none;
 }
-#panel{
-    width: 75%;
-    padding: 10px;
-    height: calc(100vh - 54px);
-    overflow-y: scroll;
+#option{
+    margin: 10px 0px;
+    padding: 10px 0px;
 }
-
-.Task{
-    width: 100%;
-    padding: 15px;
-    border-bottom: 1px solid #fff;
-    cursor: pointer;
-    font-size: 12px;
+.textbox1{
+    width: 200px;
+    height: 30px;
+    font-size: 20px;
 }
-
-.Task:hover{
-    background: #fff;
-    color: #444;
-}
-
-.fl{
-    float: left;
+.switch{
+    height: 30px;
+    top: -3px;
+    position: relative;
 }
 </style>

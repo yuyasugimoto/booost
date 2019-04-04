@@ -44,4 +44,15 @@ class ModelLogin extends Model
         return $temp;
     }
 
+
+    //タスクの詳細情報の取得
+    public function getDetail($DetailID){
+        $detail = DB::table('v_task as t')
+                    ->join('v_project as p','t.project_id','=','p.id')
+                    ->select('t.task_name','t.start_time','t.end_time','t.progress','t.task','p.project_name')
+                    ->where('t.id','=',$DetailID)->get();
+
+        return $detail;
+    }
+
 }
